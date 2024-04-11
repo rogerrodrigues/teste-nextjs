@@ -45,7 +45,7 @@ export const InputContent = styled.input`
   border: 0;
   border-radius: 0.5rem;
   background-color: var(--green-200);
-  color: var(--white);
+  color: var(--black);
   padding: 1rem;
   border: 1.5px solid var(--green-300);
   font-weight: 400;
