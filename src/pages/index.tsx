@@ -1,22 +1,13 @@
 import { FormEvent, useContext, useState } from "react";
-// import Head from "next/head";
-// import Image from "next/image";
-// import styles from "../../styles/page.module.scss";
-import logoImg from "../../public/logo.svg";
+import Image from "next/image";
+import doctorImg from "../../public/doctor.png";
 import Link from "next/link";
 import { AuthContext } from "@/contexts/AuthContext";
 import { toast } from "react-toastify";
 import { canSSRGuest } from "@/services/utils/canSSRGuest";
 import Head from "next/head";
 import * as S from './styles'
-// import { Button } from "@/components/ui/Button";
-// import { Input } from "@/components/ui/Input";
 
-// import { AuthContext } from "@/contexts/AuthContext";
-// import { toast } from "react-toastify";
-// import { canSSRGuest } from "@/utils/canSSRGuest";
-// import { Input } from "@/components/ui/Input";
-// import { Button } from "@/components/ui/Button";
 
 export default function Home() {
   const { singIn } = useContext(AuthContext);
@@ -52,31 +43,42 @@ export default function Home() {
         <title>SynSaude - login</title>
       </Head>
       <S.Container >
-        <div >
-          <form onSubmit={handleSingIn}>
-            <input
+        <S.LoginContent >
+          <h1>Bem vindo de Volta!</h1>
+          <S.FormContent onSubmit={handleSingIn}>
+            <S.InputContainer>
+
+            <S.InputLabel>Email</S.InputLabel>
+            <S.InputContent
               placeholder="Digite seu cpf"
               type="text"
               value={cpf}
               onChange={(event) => setCpf(event.target.value)}
             />
-            <input
+            </S.InputContainer>
+            <S.InputContainer>
+
+            <S.InputLabel>Senha</S.InputLabel>
+            <S.InputContent
               placeholder="Digite sua senha"
               type="password"
               value={senha}
               onChange={(event) => setSenha(event.target.value)}
             />
-            <button type="submit">
+            </S.InputContainer>
+            <S.InputLabel style={{color:'var(--purple-300)'}}>Esqueceu sua senha?</S.InputLabel>
+            <S.ButtonContent type="submit">
               Acessar
-            </button>
-          </form>
+            </S.ButtonContent>
+          </S.FormContent>
           <div >
-            <span > Não possui uma conta?</span>
+            <S.InputLabel> Não possui uma conta?</S.InputLabel>
             <Link href="/singup">
-              <span> Cadastre-se!</span>
+              <S.InputLabel style={{color:'var(--purple-300)', fontWeight: '700'}}> Cadastre-se!</S.InputLabel>
             </Link>
           </div>
-        </div>
+        </S.LoginContent>
+        <Image src={doctorImg} alt="SynSaude" width={690} height={690}/>
       </S.Container>
     </>
   );
