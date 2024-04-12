@@ -14,6 +14,17 @@ pnpm dev
 bun dev
 ```
 
+## UI Components
+
+SHADCN
+É uma coleção de componentes reutilizáveis
+https://ui.shadcn.com/docs
+
+Exemplo de uso:
+npx shadcn-ui@latest add <component>...
+
+## Nextjs
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
