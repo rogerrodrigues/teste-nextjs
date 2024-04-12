@@ -3,30 +3,26 @@ import Image from "next/image";
 import styles from "../../../styles/page.module.scss";
 import logoImg from "../../../public/logo.svg";
 import Link from "next/link";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "@/contexts/AuthContext";
 import Head from "next/head";
-// import { AuthContext } from "@/contexts/AuthContext";
-// import { Input } from "@/components/ui/Input";
-// import { Button } from "@/components/ui/Button";
-// import { Header } from "@/components/Header";
-// import { canSSRAuth } from "@/utils/canSSRAuth";
+
 
 export default function SingUp() {
   const { singUp } = useContext(AuthContext);
 
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const [isAuthUser, setIsAuthUser] = useState(true);//arrumar o estado
+  const [loading, setLoading] = useState(false);
+  const [isAuthUser, setIsAuthUser] = useState(true);
 
   async function handleSingUp(event: FormEvent) {
     event.preventDefault();
 
-    if (name === "" || email === "" || password === "") {
+    if (name === "" || cpf === "" || password === "") {
       toast.warning("Preencha todos os campos");
       return;
     }
@@ -35,7 +31,7 @@ export default function SingUp() {
 
     let data = {
       name,
-      email,
+      cpf,
       password,
     };
 
@@ -43,6 +39,25 @@ export default function SingUp() {
 
     setLoading(false);
   }
+
+  function handleCpfChange(event: { target: { value: any; }; }) {
+    const inputCpf = event.target.value;
+    const formattedCpf = formatCpf(inputCpf);
+    setCpf(formattedCpf);
+  }
+
+  function formatCpf(value: string) {
+    let cpfFormatted = value.replace(/\D/g, "");
+    
+    cpfFormatted = cpfFormatted.replace(/(\d{3})(\d)/, "$1.$2");
+    cpfFormatted = cpfFormatted.replace(/(\d{3})(\d)/, "$1.$2");
+    cpfFormatted = cpfFormatted.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+    return cpfFormatted;
+  }
+
+  
+
   return (
     <>
       <Head>
@@ -63,8 +78,10 @@ export default function SingUp() {
             <input
               placeholder="Digite seu cpf"
               type="text"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={cpf}
+              // onChange={(event) => setCpf(event.target.value)}
+              onChange={handleCpfChange}
+              maxLength={14}
             />
             <input
               placeholder="Digite sua senha"

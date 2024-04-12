@@ -6,8 +6,8 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { toast } from "react-toastify";
 import { canSSRGuest } from "@/services/utils/canSSRGuest";
 import Head from "next/head";
-import * as S from './styles'
-
+import * as S from "./styles";
+import InputWithMask from "@/components/Input";
 
 export default function Home() {
   const { singIn } = useContext(AuthContext);
@@ -42,43 +42,58 @@ export default function Home() {
       <Head>
         <title>SynSaude - login</title>
       </Head>
-      <S.Container >
-        <S.LoginContent >
+      <S.Container>
+        <S.LoginContent>
           <h1>Bem vindo de Volta!</h1>
           <S.FormContent onSubmit={handleSingIn}>
             <S.InputContainer>
+              <S.InputLabel>Cpf</S.InputLabel>
+              <InputWithMask
+                mask="999.999.999-99"
+                placeholder="Digite seu cpf"
+                value={cpf}
+                type="text"
+                onChange={(event) => setCpf(event.target.value)}
+              />
+            </S.InputContainer>
 
-            <S.InputLabel>Email</S.InputLabel>
-            <S.InputContent
-              placeholder="Digite seu cpf"
-              type="text"
-              value={cpf}
-              onChange={(event) => setCpf(event.target.value)}
-            />
+            <S.InputContainer>
+              <S.InputLabel>Email</S.InputLabel>
+              <S.InputContent
+                placeholder="Digite seu email"
+                type="email"
+                value={cpf}
+                onChange={(event) => setCpf(event.target.value)}
+              />
             </S.InputContainer>
             <S.InputContainer>
+              <S.InputLabel>Senha</S.InputLabel>
 
-            <S.InputLabel>Senha</S.InputLabel>
-            <S.InputContent
-              placeholder="Digite sua senha"
-              type="password"
-              value={senha}
-              onChange={(event) => setSenha(event.target.value)}
-            />
+              <S.InputContent
+                placeholder="Digite sua senha"
+                type="password"
+                value={senha}
+                onChange={(event) => setSenha(event.target.value)}
+              />
             </S.InputContainer>
-            <S.InputLabel style={{color:'var(--purple-300)'}}>Esqueceu sua senha?</S.InputLabel>
-            <S.ButtonContent type="submit">
-              Acessar
-            </S.ButtonContent>
+            <S.InputLabel style={{ color: "var(--purple-300)" }}>
+              Esqueceu sua senha?
+            </S.InputLabel>
+            <S.ButtonContent type="submit">Acessar</S.ButtonContent>
           </S.FormContent>
-          <div >
+          <div>
             <S.InputLabel> Não possui uma conta?</S.InputLabel>
             <Link href="/singup">
-              <S.InputLabel style={{color:'var(--purple-300)', fontWeight: '700'}}> Cadastre-se!</S.InputLabel>
+              <S.InputLabel
+                style={{ color: "var(--purple-300)", fontWeight: "700" }}
+              >
+                {" "}
+                Cadastre-se!
+              </S.InputLabel>
             </Link>
           </div>
         </S.LoginContent>
-        <Image src={doctorImg} alt="SynSaude" width={690} height={690}/>
+        {/* <Image src={doctorImg} alt="SynSaude" width={690} height={690}/> */}
       </S.Container>
     </>
   );
